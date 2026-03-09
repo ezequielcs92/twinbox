@@ -1,0 +1,40 @@
+---
+const apiKey = import.meta.env.PUBLIC_TINYMCE_API_KEY ?? 'vw1ypnbl6ql8xs11n5r66qpu9057j3z65jcc2xfufsx3auq7';
+---
+
+<div class='space-y-4'>
+	<label for='content-editor' class='text-sm font-semibold uppercase tracking-wide text-brand-accent'>Editor de contenido</label>
+	<textarea id='content-editor'></textarea>
+</div>
+
+<script is:inline define:vars={{ apiKey }}>
+	const scriptId = 'tinymce-script';
+	const editorId = '#content-editor';
+
+	function initEditor() {
+		if (!window.tinymce) return;
+		window.tinymce.init({
+			selector: editorId,
+			height: 520,
+			menubar: false,
+			branding: false,
+			plugins: 'anchor autolink charmap codesample emoticons image link lists media table visualblocks wordcount code',
+			toolbar:
+				'undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media | table code',
+			skin: 'oxide',
+			content_style:
+				"body { font-family: 'Poppins', sans-serif; color: #4f4d4d; background: #f3f6f9; font-size: 16px; line-height: 1.8; padding: 22px; } h1,h2,h3,h4 { font-family: 'Raleway', sans-serif; color: #4f4d4d; } a { color: #829240; }",
+		});
+	}
+
+	if (!document.getElementById(scriptId)) {
+		const script = document.createElement('script');
+		script.id = scriptId;
+		script.src = `https://cdn.tiny.cloud/1/${apiKey}/tinymce/7/tinymce.min.js`;
+		script.referrerPolicy = 'origin';
+		script.onload = initEditor;
+		document.head.appendChild(script);
+	} else {
+		initEditor();
+	}
+</script>

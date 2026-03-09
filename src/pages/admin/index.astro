@@ -1,0 +1,297 @@
+---
+export const prerender = false;
+import '../../styles/global.css';
+---
+
+<!doctype html>
+<html lang='es'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<title>Dashboard Blog | Twinbox</title>
+	</head>
+	<body class='bg-brand-bg text-brand-main'>
+		<main class='container-brand py-12'>
+			<header class='mb-8 flex flex-wrap items-center justify-between gap-4'>
+				<div>
+					<p class='text-xs font-semibold uppercase tracking-[0.24em] text-brand-accent'>Dashboard</p>
+					<h1 class='mt-2 font-heading text-4xl'>Administrador de Blog</h1>
+				</div>
+				<button id='logout-btn' class='hidden rounded-full border border-brand-main/20 px-4 py-2 text-sm'>Cerrar sesión</button>
+			</header>
+
+			<section id='supabase-warning' class='mb-6 hidden rounded-2xl border border-red-300 bg-red-50 p-4 text-sm text-red-700'>
+				Configura `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` en `.env` para usar el dashboard.
+			</section>
+
+			<section id='auth-view' class='max-w-md rounded-3xl border border-brand-main/10 bg-white/70 p-6 shadow-soft'>
+				<h2 class='font-heading text-2xl'>Iniciar sesión</h2>
+				<p class='mt-2 text-sm text-brand-main/80'>Acceso para administración de contenidos del blog.</p>
+				<form id='auth-form' class='mt-6 space-y-3'>
+					<input id='auth-email' type='email' required placeholder='Email' class='w-full rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+					<input id='auth-password' type='password' required placeholder='Contraseña' class='w-full rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+					<button type='submit' class='w-full rounded-full bg-brand-accent px-4 py-3 text-sm font-semibold uppercase tracking-wide text-white'>Entrar</button>
+				</form>
+			</section>
+
+			<section id='dashboard-view' class='hidden'>
+				<div class='mb-6 grid gap-6 lg:grid-cols-[1.1fr,0.9fr]'>
+					<form id='post-form' class='rounded-3xl border border-brand-main/10 bg-white/70 p-6 shadow-soft'>
+						<input id='post-id' type='hidden' />
+						<div class='grid gap-3 md:grid-cols-2'>
+							<input id='post-title' required placeholder='Título' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent md:col-span-2' />
+							<input id='post-slug' required placeholder='Slug' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+							<input id='post-author' required placeholder='Autor' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+							<input id='post-image' placeholder='Imagen destacada URL' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent md:col-span-2' />
+							<textarea id='post-description' required rows='3' placeholder='Descripción' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent md:col-span-2'></textarea>
+							<select id='post-status' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent'>
+								<option value='draft'>Borrador</option>
+								<option value='published'>Publicado</option>
+							</select>
+							<input id='post-published-at' type='datetime-local' class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+						</div>
+						<label for='content-editor' class='mt-5 block text-xs font-semibold uppercase tracking-[0.18em] text-brand-accent'>Contenido</label>
+						<textarea id='content-editor'></textarea>
+						<div class='mt-5 flex flex-wrap gap-3'>
+							<button type='submit' class='rounded-full bg-brand-accent px-5 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-white'>Guardar post</button>
+							<button id='new-post-btn' type='button' class='rounded-full border border-brand-main/20 px-5 py-3 text-xs font-semibold uppercase tracking-[0.1em]'>Nuevo</button>
+						</div>
+					</form>
+
+					<div class='rounded-3xl border border-brand-main/10 bg-white/70 p-6 shadow-soft'>
+						<h2 class='font-heading text-2xl'>Publicaciones</h2>
+						<p class='mt-2 text-sm text-brand-main/75'>Click en “Editar” para cargar el post en el formulario.</p>
+						<div id='posts-list' class='mt-5 space-y-3'></div>
+					</div>
+				</div>
+			</section>
+
+			<p id='status-msg' class='mt-3 text-sm text-brand-main/80'></p>
+		</main>
+
+		<script type='module'>
+			import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+			const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+			const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+			const tinyMceKey = import.meta.env.PUBLIC_TINYMCE_API_KEY || 'vw1ypnbl6ql8xs11n5r66qpu9057j3z65jcc2xfufsx3auq7';
+
+			const warning = document.getElementById('supabase-warning');
+			const authView = document.getElementById('auth-view');
+			const dashboardView = document.getElementById('dashboard-view');
+			const authForm = document.getElementById('auth-form');
+			const postForm = document.getElementById('post-form');
+			const postsList = document.getElementById('posts-list');
+			const logoutBtn = document.getElementById('logout-btn');
+			const statusMsg = document.getElementById('status-msg');
+
+			if (!supabaseUrl || !supabaseAnonKey) {
+				warning?.classList.remove('hidden');
+				authView?.classList.add('hidden');
+			} else {
+				const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+				const fields = {
+					id: document.getElementById('post-id'),
+					title: document.getElementById('post-title'),
+					slug: document.getElementById('post-slug'),
+					author: document.getElementById('post-author'),
+					description: document.getElementById('post-description'),
+					image: document.getElementById('post-image'),
+					status: document.getElementById('post-status'),
+					publishedAt: document.getElementById('post-published-at'),
+				};
+
+				const setStatus = (message, isError = false) => {
+					if (!statusMsg) return;
+					statusMsg.textContent = message;
+					statusMsg.style.color = isError ? '#b42318' : '#4f4d4d';
+				};
+
+				const toLocalDatetime = (isoString) => {
+					if (!isoString) return '';
+					const date = new Date(isoString);
+					const offset = date.getTimezoneOffset();
+					const local = new Date(date.getTime() - offset * 60 * 1000);
+					return local.toISOString().slice(0, 16);
+				};
+
+				const loadTinyMce = async () => {
+					if (window.tinymce) return;
+					await new Promise((resolve, reject) => {
+						const script = document.createElement('script');
+						script.src = `https://cdn.tiny.cloud/1/${tinyMceKey}/tinymce/7/tinymce.min.js`;
+						script.referrerPolicy = 'origin';
+						script.onload = resolve;
+						script.onerror = reject;
+						document.head.appendChild(script);
+					});
+
+					await window.tinymce.init({
+						selector: '#content-editor',
+						height: 360,
+						menubar: false,
+						plugins: 'anchor autolink charmap codesample emoticons image link lists media table visualblocks wordcount code',
+						toolbar:
+							'undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media | table code',
+						content_style:
+							"body { font-family: 'Poppins', sans-serif; color: #4f4d4d; background: #f3f6f9; font-size: 16px; line-height: 1.8; padding: 18px; } h1,h2,h3,h4 { font-family: 'Raleway', sans-serif; color: #4f4d4d; } a { color: #829240; }",
+						setup: (editor) => {
+							editor.on('change keyup', () => editor.save());
+						},
+					});
+				};
+
+				const resetForm = () => {
+					fields.id.value = '';
+					fields.title.value = '';
+					fields.slug.value = '';
+					fields.author.value = '';
+					fields.description.value = '';
+					fields.image.value = '';
+					fields.status.value = 'draft';
+					fields.publishedAt.value = '';
+					window.tinymce?.get('content-editor')?.setContent('');
+				};
+
+				const fillForm = (post) => {
+					fields.id.value = post.id;
+					fields.title.value = post.title;
+					fields.slug.value = post.slug;
+					fields.author.value = post.author_name;
+					fields.description.value = post.description;
+					fields.image.value = post.cover_image || '';
+					fields.status.value = post.status;
+					fields.publishedAt.value = toLocalDatetime(post.published_at);
+					window.tinymce?.get('content-editor')?.setContent(post.content || '');
+				};
+
+				const renderPosts = (posts) => {
+					if (!postsList) return;
+					postsList.innerHTML = '';
+					if (!posts.length) {
+						postsList.innerHTML = '<p class="text-sm text-brand-main/70">Sin publicaciones aún.</p>';
+						return;
+					}
+
+					posts.forEach((post) => {
+						const article = document.createElement('article');
+						article.className = 'rounded-2xl border border-brand-main/10 bg-brand-bg p-4';
+						article.innerHTML = `
+							<p class="text-[11px] uppercase tracking-[0.16em] text-brand-accent">${post.status}</p>
+							<h3 class="mt-1 font-heading text-lg">${post.title}</h3>
+							<p class="mt-1 text-xs text-brand-main/70">/${post.slug}</p>
+							<div class="mt-3 flex gap-2">
+								<button class="edit-btn rounded-full border border-brand-main/20 px-3 py-1 text-xs">Editar</button>
+								<button class="delete-btn rounded-full border border-red-300 px-3 py-1 text-xs text-red-600">Eliminar</button>
+							</div>
+						`;
+
+						article.querySelector('.edit-btn')?.addEventListener('click', () => fillForm(post));
+						article.querySelector('.delete-btn')?.addEventListener('click', async () => {
+							if (!confirm(`¿Eliminar "${post.title}"?`)) return;
+							const { error } = await supabase.from('blog_posts').delete().eq('id', post.id);
+							if (error) {
+								setStatus(error.message, true);
+								return;
+							}
+							setStatus('Post eliminado.');
+							await loadPosts();
+							if (fields.id.value === post.id) resetForm();
+						});
+
+						postsList.appendChild(article);
+					});
+				};
+
+				const loadPosts = async () => {
+					const { data, error } = await supabase
+						.from('blog_posts')
+						.select('id,slug,title,description,content,cover_image,author_name,status,published_at,created_at,updated_at')
+						.order('updated_at', { ascending: false });
+
+					if (error) {
+						setStatus(error.message, true);
+						return;
+					}
+
+					renderPosts(data ?? []);
+				};
+
+				const slugify = (value) =>
+					value
+						.toLowerCase()
+						.normalize('NFD')
+						.replace(/[\u0300-\u036f]/g, '')
+						.replace(/[^a-z0-9\s-]/g, '')
+						.trim()
+						.replace(/\s+/g, '-');
+
+				fields.title.addEventListener('input', () => {
+					if (!fields.id.value) fields.slug.value = slugify(fields.title.value);
+				});
+
+				authForm?.addEventListener('submit', async (event) => {
+					event.preventDefault();
+					const email = document.getElementById('auth-email')?.value;
+					const password = document.getElementById('auth-password')?.value;
+					const { error } = await supabase.auth.signInWithPassword({ email, password });
+					if (error) return setStatus(error.message, true);
+					setStatus('Sesión iniciada correctamente.');
+				});
+
+				logoutBtn?.addEventListener('click', async () => {
+					await supabase.auth.signOut();
+					setStatus('Sesión cerrada.');
+				});
+
+				postForm?.addEventListener('submit', async (event) => {
+					event.preventDefault();
+
+					const content = window.tinymce?.get('content-editor')?.getContent() || '';
+					const payload = {
+						title: fields.title.value.trim(),
+						slug: slugify(fields.slug.value.trim()),
+						description: fields.description.value.trim(),
+						content,
+						cover_image: fields.image.value.trim() || null,
+						author_name: fields.author.value.trim(),
+						status: fields.status.value,
+						published_at: fields.publishedAt.value ? new Date(fields.publishedAt.value).toISOString() : null,
+					};
+
+					const { error } = await supabase.from('blog_posts').upsert(
+						fields.id.value ? { id: fields.id.value, ...payload } : payload,
+						{ onConflict: 'slug' }
+					);
+
+					if (error) return setStatus(error.message, true);
+					setStatus('Post guardado correctamente.');
+					await loadPosts();
+					if (!fields.id.value) resetForm();
+				});
+
+				document.getElementById('new-post-btn')?.addEventListener('click', resetForm);
+
+				const syncView = async () => {
+					const { data } = await supabase.auth.getSession();
+					const loggedIn = Boolean(data.session);
+					authView?.classList.toggle('hidden', loggedIn);
+					dashboardView?.classList.toggle('hidden', !loggedIn);
+					logoutBtn?.classList.toggle('hidden', !loggedIn);
+
+					if (loggedIn) {
+						await loadTinyMce();
+						await loadPosts();
+					}
+				};
+
+				supabase.auth.onAuthStateChange(() => {
+					syncView();
+				});
+
+				syncView();
+			}
+		</script>
+	</body>
+</html>

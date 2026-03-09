@@ -1,0 +1,17 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	align?: 'left' | 'center';
+}
+
+const { title, subtitle, align = 'left' } = Astro.props;
+const alignment = align === 'center' ? 'text-center mx-auto' : '';
+---
+
+<div class={`max-w-3xl ${alignment}`}>
+	<p class='mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Twinbox Agency</p>
+	<h2 class='font-heading text-3xl leading-tight md:text-5xl'>{title}</h2>
+	{subtitle && <p class='mt-4 text-base leading-relaxed text-brand-main/80 md:text-lg'>{subtitle}</p>}
+	<div class={`mt-6 h-px w-20 bg-brand-accent/70 ${align === 'center' ? 'mx-auto' : ''}`}></div>
+</div>

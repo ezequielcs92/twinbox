@@ -1,0 +1,32 @@
+---
+import Layout from './Layout.astro';
+import Button from '../components/Button.astro';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={`${title} | Twinbox Agency`} description={description}>
+	<section class='container-brand section-space'>
+		<p class='text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Servicio Especializado</p>
+		<h1 class='mt-3 max-w-4xl font-heading text-4xl leading-tight md:text-6xl'>{title}</h1>
+		<p class='mt-6 max-w-3xl text-lg leading-relaxed text-brand-main/80'>{description}</p>
+	</section>
+	<section class='container-brand pb-20'>
+		<slot />
+	</section>
+	<section class='container-brand pb-24'>
+		<div class='rounded-3xl border border-brand-main/10 bg-white/70 p-8 shadow-soft md:p-12'>
+			<h2 class='font-heading text-3xl md:text-4xl'>¿Listo para escalar tu marca?</h2>
+			<p class='mt-3 max-w-2xl text-brand-main/80'>Diseñamos estrategias integrales para crecer con claridad, consistencia y resultados medibles.</p>
+			<div class='mt-8 flex flex-wrap gap-4'>
+				<Button href='/contacto' variant='primary'>Solicitar propuesta</Button>
+				<Button href='/paquetes' variant='outline'>Ver paquetes</Button>
+			</div>
+		</div>
+	</section>
+</Layout>

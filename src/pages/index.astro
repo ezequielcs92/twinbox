@@ -1,49 +1,132 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const services = [
+	{
+		title: 'Manejo de Redes Sociales',
+		description: 'Estrategia, calendarización, community management y análisis para Facebook, Instagram y TikTok.',
+		href: '/paquetes',
+		icon: '/images/brand/SOCIALMEDIA.webp',
+	},
+	{
+		title: 'Sesiones Foto y Video',
+		description: 'Producción audiovisual profesional para contenido orgánico, pauta digital, web y plataformas de venta.',
+		href: '/sesiones',
+		icon: '/images/brand/GEMELOS.webp',
+	},
+	{
+		title: 'Inteligencia Artificial',
+		description: 'Automatización de procesos, atención y ventas con IA aplicada al negocio y enfoque de rentabilidad.',
+		href: '/ia',
+		icon: '/images/brand/VECTOR4.webp',
+	},
+];
+
+const cities = [
+	'Mérida, Yucatán',
+	'Ixtapa Zihuatanejo',
+	'Tulum',
+	'Playa del Carmen',
+	'Ciudad de México',
+	'Isla Cozumel',
+	'Cancún',
+	'San Luis Potosí',
+	'Morelia, Michoacán',
+	'Cobertura Nacional',
+];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout>
+	<section id='hero' class='container-brand section-space'>
+		<div class='grid items-center gap-12 lg:grid-cols-2'>
+			<div data-reveal>
+				<p class='text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Agencia de publicidad y marketing digital en México</p>
+				<h1 class='mt-4 font-heading text-5xl leading-tight md:text-7xl'>Estrategia, creatividad y resultados reales para tu marca.</h1>
+				<p class='mt-6 max-w-xl text-lg leading-relaxed text-brand-main/80'>Con más de 10 años de experiencia, ayudamos a empresas y negocios a posicionarse, vender y crecer con una operación digital integral.</p>
+				<div class='mt-10 flex flex-wrap gap-4'>
+					<Button href='/contacto'>Agendar diagnóstico</Button>
+					<Button href='/portafolio' variant='outline'>Ver portafolio</Button>
+				</div>
+				<div class='mt-10 grid max-w-xl grid-cols-3 gap-3 text-center'>
+					<div class='rounded-2xl border border-brand-main/10 bg-white/65 px-3 py-4'>
+						<p class='font-heading text-2xl'>+10</p>
+						<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Años</p>
+					</div>
+					<div class='rounded-2xl border border-brand-main/10 bg-white/65 px-3 py-4'>
+						<p class='font-heading text-2xl'>+10</p>
+						<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Ciudades</p>
+					</div>
+					<div class='rounded-2xl border border-brand-main/10 bg-white/65 px-3 py-4'>
+						<p class='font-heading text-2xl'>24/7</p>
+						<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Atención</p>
+					</div>
+				</div>
+			</div>
+			<div class='glass-panel p-4' data-reveal>
+				<img src='/images/brand/GEMELOS.webp' alt='Equipo Twinbox' class='w-full rounded-2xl object-contain object-center' />
+			</div>
+		</div>
+	</section>
+
+	<section id='servicios' class='section-space bg-white/60'>
+		<div class='container-brand'>
+			<div data-reveal>
+				<SectionHeading title='Servicios estratégicos' subtitle='One-page focus: Redes, Foto/Video e IA como ejes principales, con soluciones complementarias para escalar resultados.' />
+			</div>
+			<div class='mt-12 grid gap-6 lg:grid-cols-3'>
+				{services.map((service) => (
+					<article class='glass-panel overflow-hidden p-0 transition-all duration-300 hover:-translate-y-1' data-reveal>
+						<img src={service.icon} alt={service.title} class='h-44 w-full object-cover' />
+						<div class='p-7'>
+							<h3 class='font-heading text-2xl'>{service.title}</h3>
+							<p class='mt-3 text-sm leading-relaxed text-brand-main/80'>{service.description}</p>
+							<a href={service.href} class='mt-6 inline-flex text-sm font-semibold text-brand-accent'>Conocer servicio →</a>
+						</div>
+					</article>
+				))}
+			</div>
+			<div class='mt-10 flex flex-wrap gap-3 text-sm'>
+				<a href='/clinica-de-marketing' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Clínica de Marketing</a>
+				<a href='/cursos' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Cursos</a>
+				<a href='/ecommerce' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>E-commerce</a>
+				<a href='/estudio-de-mercado' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Estudio de mercado</a>
+				<a href='/paquetes' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Paquetes</a>
+			</div>
+		</div>
+	</section>
+
+	<section id='presencia' class='container-brand section-space'>
+		<div data-reveal>
+			<SectionHeading title='Presencia nacional' subtitle='Atendemos proyectos en destinos clave de México con operación remota y presencial.' />
+		</div>
+		<div class='mt-10 grid gap-3 md:grid-cols-2 xl:grid-cols-5'>
+			{cities.map((city) => (
+				<div class='rounded-xl border border-brand-main/10 bg-white/75 px-4 py-3 text-sm font-medium transition-all duration-300 hover:border-brand-accent/40 hover:bg-white' data-reveal>{city}</div>
+			))}
+		</div>
+	</section>
+
+	<section id='contacto' class='section-space bg-white/70'>
+		<div class='container-brand grid gap-12 lg:grid-cols-2'>
+			<div data-reveal>
+				<SectionHeading title='Contacto' subtitle='Cuéntanos tu objetivo y preparamos una propuesta estratégica adaptada a tu industria.' />
+				<ul class='mt-8 space-y-3 text-sm text-brand-main/90'>
+					<li>Email: <a href='mailto:twinboxmex@gmail.com' class='text-brand-accent'>twinboxmex@gmail.com</a></li>
+					<li>Teléfono: <a href='tel:+529878004033' class='text-brand-accent'>+52 987 800 4033</a></li>
+					<li>WhatsApp: <a href='tel:+529871116712' class='text-brand-accent'>+52 987 111 6712</a></li>
+				</ul>
+			</div>
+			<form class='rounded-3xl border border-brand-main/10 bg-brand-bg p-8 shadow-soft' data-reveal>
+				<div class='grid gap-4 md:grid-cols-2'>
+					<input type='text' placeholder='Nombre' class='rounded-xl border border-brand-main/15 bg-white px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+					<input type='email' placeholder='Email' class='rounded-xl border border-brand-main/15 bg-white px-4 py-3 text-sm outline-none focus:border-brand-accent' />
+					<input type='text' placeholder='Teléfono' class='rounded-xl border border-brand-main/15 bg-white px-4 py-3 text-sm outline-none focus:border-brand-accent md:col-span-2' />
+					<textarea rows='5' placeholder='Cuéntanos sobre tu proyecto' class='rounded-xl border border-brand-main/15 bg-white px-4 py-3 text-sm outline-none focus:border-brand-accent md:col-span-2'></textarea>
+				</div>
+				<Button class='mt-6 w-full' type='submit'>Enviar mensaje</Button>
+			</form>
+		</div>
+	</section>
+</Layout>

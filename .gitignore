@@ -22,3 +22,13 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local/copilot tooling
+.agents/
+skills-lock.json
+
+# vercel local output
+.vercel/
+
+# source reference docs/assets (not app runtime)
+Info/

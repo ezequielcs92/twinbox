@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+
+const gallery = [
+	'1.webp',
+	'2.webp',
+	'473424228_122205317390217564_8185519061773517806_n.webp',
+	'475806923_1476499059933142_5004130069439077144_n.webp',
+	'480309885_1494799811436400_6461934436720490130_n.webp',
+	'481050850_1494799934769721_466861737392626203_n.webp',
+	'484271441_1069204175243747_991556700178182076_n.webp',
+	'486574019_1079810554183109_1446832827767527044_n.webp',
+	'495125577_1156231953183886_4385713283243831343_n.webp',
+	'495370504_1151837643623317_2497817616335123628_n.webp',
+	'5.webp',
+	'517594631_1168068208690676_2852620537321677213_n.webp',
+	'527781040_1227141216092959_340006850240470399_n.webp',
+	'529346091_122203046606336944_1589172096155476436_n.webp',
+	'542694582_1219294780234685_7422148242077288608_n.webp',
+	'561749811_1253758600121636_2183293938326687274_n.webp',
+	'593484695_1331040642369682_2035316224901077972_n.webp',
+	'AHC FACE.webp',
+	'akumal foto.webp',
+	'Suite Ironman.webp',
+];
+
+const featuredImage = 'PORTAFOLIO.webp';
+---
+
+<Layout title='Portafolio | Twinbox Agency' description='Casos visuales y proyectos de contenido, branding y marketing digital desarrollados por Twinbox.'>
+	<section class='container-brand section-space'>
+		<SectionHeading title='Portafolio' subtitle='Una muestra de proyectos creados para marcas en turismo, hospitalidad, eventos y negocios de alto crecimiento.' />
+		<div class='mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3'>
+			{gallery.map((img, index) => (
+				<article class='overflow-hidden rounded-2xl border border-brand-main/10 bg-white/70 shadow-soft'>
+					<button
+						type='button'
+						class='block w-full cursor-zoom-in'
+						data-index={index}
+						data-full={`/images/portfolio/${img}`}
+						data-alt={`Proyecto Twinbox ${img}`}
+					>
+						<img src={`/images/portfolio/${img}`} alt={`Proyecto Twinbox ${img}`} class='h-72 w-full object-cover transition-transform duration-500 hover:scale-105' />
+					</button>
+				</article>
+			))}
+		</div>
+
+		<div class='mt-16'>
+			<div class='overflow-hidden rounded-2xl'>
+				<img src={`/images/portfolio/${featuredImage}`} alt='Portafolio Twinbox' class='h-auto w-full object-cover' />
+			</div>
+		</div>
+
+		<div id='portfolio-lightbox' class='fixed inset-0 z-[90] hidden items-center justify-center bg-black/80 p-4'>
+			<button id='portfolio-lightbox-close' type='button' class='absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-main'>Cerrar</button>
+			<button id='portfolio-lightbox-prev' type='button' class='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-xl font-bold text-brand-main'>‹</button>
+			<img id='portfolio-lightbox-image' src='' alt='' class='h-auto max-h-[88vh] w-auto max-w-[94vw] rounded-xl object-contain' />
+			<button id='portfolio-lightbox-next' type='button' class='absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-xl font-bold text-brand-main'>›</button>
+		</div>
+	</section>
+</Layout>
+
+<script is:inline>
+	const dialog = document.getElementById('portfolio-lightbox');
+	const dialogImage = document.getElementById('portfolio-lightbox-image');
+	const closeButton = document.getElementById('portfolio-lightbox-close');
+	const prevButton = document.getElementById('portfolio-lightbox-prev');
+	const nextButton = document.getElementById('portfolio-lightbox-next');
+	const triggers = document.querySelectorAll('[data-full]');
+	const items = Array.from(triggers).map((trigger) => ({
+		src: trigger.getAttribute('data-full'),
+		alt: trigger.getAttribute('data-alt') ?? 'Proyecto Twinbox',
+	}));
+	let currentIndex = 0;
+
+	const render = (index) => {
+		const item = items[index];
+		if (!item || !dialogImage || !item.src) return;
+		dialogImage.setAttribute('src', item.src);
+		dialogImage.setAttribute('alt', item.alt);
+		currentIndex = index;
+	};
+
+	const openLightbox = (index) => {
+		render(index);
+		dialog?.classList.remove('hidden');
+		dialog?.classList.add('flex');
+		document.body.style.overflow = 'hidden';
+	};
+
+	const closeLightbox = () => {
+		dialog?.classList.add('hidden');
+		dialog?.classList.remove('flex');
+		document.body.style.overflow = '';
+	};
+
+	const next = () => render((currentIndex + 1) % items.length);
+	const prev = () => render((currentIndex - 1 + items.length) % items.length);
+
+	triggers.forEach((trigger) => {
+		trigger.addEventListener('click', () => {
+			const index = Number(trigger.getAttribute('data-index') ?? 0);
+			openLightbox(index);
+		});
+	});
+
+	closeButton?.addEventListener('click', closeLightbox);
+	nextButton?.addEventListener('click', next);
+	prevButton?.addEventListener('click', prev);
+
+	dialog?.addEventListener('click', (event) => {
+		if (event.target === dialog) closeLightbox();
+	});
+
+	window.addEventListener('keydown', (event) => {
+		if (dialog?.classList.contains('hidden')) return;
+		if (event.key === 'Escape') closeLightbox();
+		if (event.key === 'ArrowRight') next();
+		if (event.key === 'ArrowLeft') prev();
+	});
+</script>

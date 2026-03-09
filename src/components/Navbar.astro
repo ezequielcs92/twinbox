@@ -1,0 +1,67 @@
+---
+const mainLinks = [
+	{ href: '/', label: 'Inicio' },
+	{ href: '/nosotros', label: 'Nosotros' },
+	{ href: '/portafolio', label: 'Portafolio' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/contacto', label: 'Contacto' },
+];
+
+const serviceLinks = [
+	{ href: '/clinica-de-marketing', label: 'Clínica de Marketing' },
+	{ href: '/cursos', label: 'Cursos' },
+	{ href: '/ecommerce', label: 'E-commerce' },
+	{ href: '/estudio-de-mercado', label: 'Estudio de Mercado' },
+	{ href: '/ia', label: 'IA' },
+	{ href: '/paquetes', label: 'Paquetes' },
+	{ href: '/sesiones', label: 'Sesiones' },
+];
+
+const allMobileLinks = [...mainLinks.slice(0, 2), ...serviceLinks, ...mainLinks.slice(2)];
+---
+
+<header class='sticky top-0 z-50 border-b border-brand-main/10 bg-brand-bg/95 backdrop-blur'>
+	<div class='container-brand flex h-20 items-center justify-between gap-6'>
+		<a href='/' aria-label='Inicio Twinbox Agency' class='flex items-center gap-3'>
+			<img src='/images/brand/LOGO.webp' alt='' class='h-10 w-auto rounded-sm' />
+			<span class='sr-only'>Inicio Twinbox Agency</span>
+		</a>
+
+		<nav class='hidden items-center gap-6 xl:flex'>
+			{mainLinks.map((link) => (
+				<a
+					href={link.href}
+					class={`text-sm font-medium transition-colors hover:text-brand-accent ${Astro.url.pathname === link.href ? 'text-brand-accent' : ''}`}
+				>
+					{link.label}
+				</a>
+			))}
+
+			<div class='group relative'>
+				<button type='button' class='text-sm font-medium transition-colors hover:text-brand-accent'>Servicios</button>
+				<div class='invisible absolute right-0 top-8 w-64 translate-y-2 rounded-2xl border border-brand-main/10 bg-brand-bg p-3 opacity-0 shadow-soft transition-all duration-300 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100'>
+					{serviceLinks.map((link) => (
+						<a href={link.href} class='block rounded-lg px-3 py-2 text-sm hover:bg-brand-main/5'>
+							{link.label}
+						</a>
+					))}
+				</div>
+			</div>
+		</nav>
+
+		<details class='xl:hidden'>
+			<summary class='cursor-pointer rounded-full border border-brand-main/20 px-4 py-2 text-sm font-medium marker:content-none'>Menú</summary>
+			<div class='absolute right-6 top-16 w-72 rounded-2xl border border-brand-main/10 bg-brand-bg p-4 shadow-soft'>
+				<ul class='space-y-2'>
+					{allMobileLinks.map((link) => (
+						<li>
+							<a href={link.href} class='block rounded-lg px-3 py-2 text-sm hover:bg-brand-main/5'>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</details>
+	</div>
+</header>

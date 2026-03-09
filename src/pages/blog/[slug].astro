@@ -1,0 +1,38 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import { createSupabaseServerClient, hasSupabaseConfig } from '../../lib/supabase';
+
+const slug = Astro.params.slug;
+const supabase = createSupabaseServerClient();
+
+if (!hasSupabaseConfig || !supabase || !slug) {
+	return Astro.redirect('/blog');
+}
+
+const { data: post } = await supabase
+	.from('blog_posts')
+	.select('slug,title,description,content,cover_image,author_name,published_at,status')
+	.eq('slug', slug)
+	.eq('status', 'published')
+	.maybeSingle();
+
+if (!post) {
+	return Astro.redirect('/blog');
+}
+---
+
+<Layout title={`${post.title || 'Publicación'} | Blog Twinbox`} description={post.description} image={post.cover_image || '/images/portfolio/PORTAFOLIO.webp'}>
+	<article class='container-brand section-space'>
+		<div class='mx-auto max-w-3xl'>
+			<p class='text-xs uppercase tracking-wide text-brand-accent'>
+				{post.author_name} · {post.published_at ? new Date(post.published_at).toLocaleDateString('es-MX') : 'Sin fecha'}
+			</p>
+			<h1 class='mt-3 font-heading text-4xl md:text-5xl'>{post.title || 'Publicación sin título'}</h1>
+			<img src={post.cover_image || '/images/portfolio/PORTAFOLIO.webp'} alt={post.title || 'Imagen del post'} class='mt-8 h-[360px] w-full rounded-2xl object-cover shadow-soft' />
+			<div class='prose prose-lg mt-10 max-w-none prose-headings:font-heading prose-a:text-brand-accent prose-p:text-brand-main/85' set:html={post.content}>
+			</div>
+		</div>
+	</article>
+</Layout>

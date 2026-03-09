@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title='Contacto | Twinbox Agency' description='Agenda una sesión con Twinbox Agency para diseñar tu estrategia de marketing digital.'>
+	<section class='container-brand section-space'>
+		<SectionHeading title='Contacto' subtitle='Hablemos de tus objetivos y construyamos un plan de crecimiento digital a medida.' />
+		<div class='mt-12 grid gap-10 lg:grid-cols-2'>
+			<div class='space-y-4 text-sm text-brand-main/85'>
+				<p>Email: <a class='font-semibold text-brand-accent' href='mailto:twinboxmex@gmail.com'>twinboxmex@gmail.com</a></p>
+				<p>Teléfono 1: <a class='font-semibold text-brand-accent' href='tel:+529878004033'>+52 987 800 4033</a></p>
+				<p>Teléfono 2: <a class='font-semibold text-brand-accent' href='tel:+529871116712'>+52 987 111 6712</a></p>
+				<p>Ciudades: Mérida, Cancún, Tulum, Playa del Carmen, CDMX, Cozumel, San Luis Potosí, Morelia e Ixtapa Zihuatanejo.</p>
+			</div>
+			<form class='rounded-3xl border border-brand-main/10 bg-white/75 p-8 shadow-soft'>
+				<div class='grid gap-4'>
+					<input class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' type='text' placeholder='Nombre' />
+					<input class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' type='email' placeholder='Email' />
+					<input class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' type='text' placeholder='Asunto' />
+					<textarea class='rounded-xl border border-brand-main/15 bg-brand-bg px-4 py-3 text-sm outline-none focus:border-brand-accent' rows='5' placeholder='Mensaje'></textarea>
+				</div>
+				<Button class='mt-5 w-full' type='submit'>Enviar solicitud</Button>
+			</form>
+		</div>
+	</section>
+</Layout>

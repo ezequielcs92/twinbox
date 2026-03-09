@@ -1,114 +1,49 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+export const prerender = false;
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+import Layout from '../../layouts/Layout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { createSupabaseServerClient, hasSupabaseConfig } from '../../lib/supabase';
+
+const supabase = createSupabaseServerClient();
+let posts = [];
+
+if (supabase) {
+	const { data } = await supabase
+		.from('blog_posts')
+		.select('slug,title,description,cover_image,author_name,published_at')
+		.eq('status', 'published')
+		.order('published_at', { ascending: false, nullsFirst: false });
+
+	posts = data ?? [];
+}
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title='Blog | Twinbox Agency' description='Artículos sobre marketing digital, publicidad online, branding e inteligencia artificial aplicada a negocios.'>
+	<section class='container-brand section-space'>
+		<SectionHeading title='Blog Twinbox' subtitle='Ideas accionables para crecimiento digital, ventas y posicionamiento de marca.' />
+		{!hasSupabaseConfig && (
+			<p class='mt-12 rounded-2xl border border-brand-main/10 bg-white/70 p-6 text-sm'>Configura `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` para habilitar el blog dinámico.</p>
+		)}
+
+		{hasSupabaseConfig && posts.length === 0 && (
+			<p class='mt-12 rounded-2xl border border-brand-main/10 bg-white/70 p-6 text-sm'>Aún no hay publicaciones publicadas.</p>
+		)}
+
+		{posts.length > 0 && (
+			<div class='mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3'>
+				{posts.map((post) => (
+					<article class='rounded-2xl border border-brand-main/10 bg-white/80 p-6 shadow-soft'>
+						<img src={post.cover_image || '/images/portfolio/PORTAFOLIO.webp'} alt={post.title || 'Imagen del post'} class='h-48 w-full rounded-xl object-cover' />
+						<p class='mt-4 text-xs uppercase tracking-wide text-brand-accent'>
+							{post.author_name} · {post.published_at ? new Date(post.published_at).toLocaleDateString('es-MX') : 'Sin fecha'}
+						</p>
+						<h2 class='mt-2 font-heading text-2xl'>{post.title || 'Publicación sin título'}</h2>
+						<p class='mt-3 text-sm text-brand-main/80'>{post.description}</p>
+						<a href={`/blog/${post.slug}`} class='mt-5 inline-flex font-semibold text-brand-accent'>Leer artículo →</a>
+					</article>
+				))}
+			</div>
+		)}
+	</section>
+</Layout>
