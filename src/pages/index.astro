@@ -8,7 +8,7 @@ const services = [
 		title: 'Manejo de Redes Sociales',
 		description: 'Estrategia, calendarización, community management y análisis para Facebook, Instagram y TikTok.',
 		href: '/paquetes',
-		icon: '/images/brand/SOCIALMEDIA.webp',
+		icon: '/images/brand/META.webp',
 	},
 	{
 		title: 'Sesiones Foto y Video',
@@ -20,7 +20,7 @@ const services = [
 		title: 'Inteligencia Artificial',
 		description: 'Automatización de procesos, atención y ventas con IA aplicada al negocio y enfoque de rentabilidad.',
 		href: '/ia',
-		icon: '/images/brand/VECTOR4.webp',
+		icon: '/images/brand/IA-BRAIN.png',
 	},
 ];
 
@@ -70,6 +70,12 @@ const cities = [
 		</div>
 	</section>
 
+	<section class='container-brand pb-10'>
+		<div class='glass-panel p-8 md:p-12' data-reveal>
+			<img src='/images/brand/RUBROS.webp' alt='Rubros Twinbox' class='mx-auto block h-auto w-auto max-w-full object-contain object-center' />
+		</div>
+	</section>
+
 	<section id='servicios' class='section-space bg-white/60'>
 		<div class='container-brand'>
 			<div data-reveal>
@@ -78,7 +84,9 @@ const cities = [
 			<div class='mt-12 grid gap-6 lg:grid-cols-3'>
 				{services.map((service) => (
 					<article class='glass-panel overflow-hidden p-0 transition-all duration-300 hover:-translate-y-1' data-reveal>
-						<img src={service.icon} alt={service.title} class='h-44 w-full object-cover' />
+						<div class='p-4 pb-0'>
+							<img src={service.icon} alt={service.title} class='h-40 w-full rounded-xl bg-white object-contain object-center' />
+						</div>
 						<div class='p-7'>
 							<h3 class='font-heading text-2xl'>{service.title}</h3>
 							<p class='mt-3 text-sm leading-relaxed text-brand-main/80'>{service.description}</p>
@@ -88,6 +96,7 @@ const cities = [
 				))}
 			</div>
 			<div class='mt-10 flex flex-wrap gap-3 text-sm'>
+				<a href='/branding' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Branding e identidad de marca</a>
 				<a href='/clinica-de-marketing' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Clínica de Marketing</a>
 				<a href='/cursos' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>Cursos</a>
 				<a href='/ecommerce' class='rounded-full border border-brand-main/15 bg-brand-bg px-4 py-2 hover:border-brand-accent hover:text-brand-accent'>E-commerce</a>

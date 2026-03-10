@@ -34,7 +34,7 @@ if (supabase) {
 			<div class='mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3'>
 				{posts.map((post) => (
 					<article class='rounded-2xl border border-brand-main/10 bg-white/80 p-6 shadow-soft'>
-						<img src={post.cover_image || '/images/portfolio/PORTAFOLIO.webp'} alt={post.title || 'Imagen del post'} class='h-48 w-full rounded-xl object-cover' />
+						<img src={post.cover_image || '/images/portfolio/PORTAFOLIO.webp'} alt={post.title || 'Imagen del post'} class='h-auto w-full rounded-xl object-contain' />
 						<p class='mt-4 text-xs uppercase tracking-wide text-brand-accent'>
 							{post.author_name} · {post.published_at ? new Date(post.published_at).toLocaleDateString('es-MX') : 'Sin fecha'}
 						</p>

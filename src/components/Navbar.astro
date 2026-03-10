@@ -8,6 +8,7 @@ const mainLinks = [
 ];
 
 const serviceLinks = [
+	{ href: '/branding', label: 'Branding e Identidad de Marca' },
 	{ href: '/clinica-de-marketing', label: 'Clínica de Marketing' },
 	{ href: '/cursos', label: 'Cursos' },
 	{ href: '/ecommerce', label: 'E-commerce' },
@@ -28,7 +29,7 @@ const allMobileLinks = [...mainLinks.slice(0, 2), ...serviceLinks, ...mainLinks.
 		</a>
 
 		<nav class='hidden items-center gap-6 xl:flex'>
-			{mainLinks.map((link) => (
+			{mainLinks.slice(0, 2).map((link) => (
 				<a
 					href={link.href}
 					class={`text-sm font-medium transition-colors hover:text-brand-accent ${Astro.url.pathname === link.href ? 'text-brand-accent' : ''}`}
@@ -47,6 +48,15 @@ const allMobileLinks = [...mainLinks.slice(0, 2), ...serviceLinks, ...mainLinks.
 					))}
 				</div>
 			</div>
+
+			{mainLinks.slice(2).map((link) => (
+				<a
+					href={link.href}
+					class={`text-sm font-medium transition-colors hover:text-brand-accent ${Astro.url.pathname === link.href ? 'text-brand-accent' : ''}`}
+				>
+					{link.label}
+				</a>
+			))}
 		</nav>
 
 		<details class='xl:hidden'>

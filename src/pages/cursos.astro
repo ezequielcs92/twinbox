@@ -4,15 +4,85 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 
 <ServiceLayout
 	title='Cursos y Capacitaciones'
-	description='Capacitación práctica en marketing digital para personas, equipos y empresas que buscan resultados medibles.'
+	description='Aprende los principios del marketing digital desde cero y domina las herramientas que hoy hacen crecer a las marcas.'
 >
-	<div class='space-y-6 rounded-2xl border border-brand-main/10 bg-white/70 p-7'>
-		<p>Aprende principios de marketing digital, gestión de redes, algoritmos, creación de contenido y neuromarketing con enfoque aplicado.</p>
-		<ul class='grid gap-3 text-sm text-brand-main/85 md:grid-cols-2'>
-			<li>• Curso personal (2 días): $7,000 MXN</li>
-			<li>• Curso para empresas: $2,500 MXN por persona</li>
-			<li>• Know How (1 mes): $30,000 MXN</li>
-			<li>• Asesoría post curso incluida</li>
-		</ul>
+	<div class='space-y-8'>
+		<section class='overflow-hidden rounded-3xl border border-brand-main/10 bg-white/75 shadow-soft'>
+			<div class='grid gap-0 lg:grid-cols-[1.15fr,0.85fr]'>
+				<div class='p-8 md:p-10'>
+					<p class='text-xs font-semibold uppercase tracking-[0.22em] text-brand-accent'>Cursos y Capacitaciones</p>
+					<p class='mt-5 leading-relaxed text-brand-main/85'>Este curso está diseñado para quienes desean entender cómo funciona el marketing digital de forma estratégica, práctica y actual, desde las bases del marketing hasta la psicología del cliente y el neuromarketing.</p>
+					<p class='mt-4 font-medium text-brand-main'>Convierte el marketing digital en una habilidad rentable.</p>
+					<p class='mt-3 leading-relaxed text-brand-main/85'>Aprende a crear estrategias, gestionar redes sociales, entender algoritmos y conectar con clientes reales mediante contenidos efectivos y técnicas de marketing probadas.</p>
+				</div>
+				<div class='border-t border-brand-main/10 bg-brand-main/[0.03] p-8 lg:border-l lg:border-t-0'>
+					<div class='rounded-2xl border border-brand-main/10 bg-white p-5'>
+						<p class='text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent'>Cursos y Capacitaciones</p>
+						<p class='mt-2 text-sm text-brand-main/80'>Formación estratégica, práctica y actual para resultados reales.</p>
+					</div>
+					<div class='mt-4 rounded-2xl border border-brand-main/10 bg-white p-5'>
+						<p class='text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent'>Formato</p>
+						<p class='mt-2 text-sm text-brand-main/85'>Curso personal, curso empresas y plan KNOW HOW.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class='grid gap-6 lg:grid-cols-2'>
+			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+				<h2 class='font-heading text-3xl'>PRINCIPIOS DEL MARKETING</h2>
+				<ul class='mt-5 space-y-2 text-sm text-brand-main/85'>
+					<li>- Bases del marketing</li>
+					<li>- Bases del redes sociales</li>
+					<li>- Facebook, Instagram, Twitter y TikTok</li>
+					<li>- Algoritmos de activación</li>
+					<li>- Normas y procesos de posicionamiento online</li>
+					<li>- Tipos de publicaciones</li>
+					<li>- Tipos de difusión orgánica</li>
+					<li>- (CRM) Customer relationship management</li>
+					<li>- Diseños gráficos</li>
+					<li>- Contenidos original y derechos de autor</li>
+					<li>- Google Business.</li>
+					<li>- Bases y responsabilidades del Community manager</li>
+					<li>- Calendarios de publicación</li>
+					<li>- Estrategias</li>
+					<li>- Neuro-marketing</li>
+					<li>- Psicología del cliente</li>
+				</ul>
+			</article>
+
+			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+				<h2 class='font-heading text-3xl'>MARKETING APLICADO</h2>
+				<p class='mt-5 text-sm text-brand-main/85'>Estudio de mercado.</p>
+				<p class='mt-2 text-sm text-brand-main/85'>Lectura de estadísitcas.</p>
+				<ul class='mt-4 space-y-2 text-sm text-brand-main/85'>
+					<li>- Tipos de campaña.</li>
+					<li>- Segmentación de audiencias.</li>
+					<li>- Campaña de awareness, conexión y venta.</li>
+					<li>- Tipos de contenido para promoción.</li>
+					<li>- Pagos de publicidad en META Y GOOGLE.</li>
+					<li>- Presupuesto y seguimiento de campañas de ADS.</li>
+					<li>- Uso del administrador de anuncios.</li>
+				</ul>
+			</article>
+		</section>
+
+		<section class='grid gap-6 xl:grid-cols-3'>
+			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+				<h3 class='font-heading text-2xl'>CURSO PERSONAL 2 dias 4hs $7,000 pesos</h3>
+				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Incluye 15 días de asesoramiento post curso - 2 PDF cursos completo - certificado de asistencia</p>
+			</article>
+
+			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+				<h3 class='font-heading text-2xl'>CURSO EMPRESAS 2 dias 4hs $2,500 pesos P/PERSONA</h3>
+				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Minimo 4 y hasta 10 personas, incluye asesoría de 15 días post curso - 2 PDF cursos completo - certificado de asistencia</p>
+			</article>
+
+			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+				<h3 class='font-heading text-2xl'>KNOW HOW 1mes $30,000 pesos</h3>
+				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Buscamos a todos los integrantes que tu necesitas para hacer tu departamento de marketing</p>
+				<p class='mt-2 text-sm leading-relaxed text-brand-main/85'>inhouse y los capacitamos individualmente para que te den resultados inmediatos.</p>
+			</article>
+		</section>
 	</div>
 </ServiceLayout>
