@@ -64,7 +64,7 @@ html {
 		inset: 0;
 		z-index: 0;
 		pointer-events: none;
-		opacity: 0.9;
+		opacity: 1;
 	}
 
 	.grain-overlay {
@@ -72,7 +72,7 @@ html {
 		inset: 0;
 		z-index: 1;
 		pointer-events: none;
-		opacity: 0.08;
+		opacity: 0.045;
 		background-image: radial-gradient(circle at 1px 1px, rgb(79 77 77 / 0.25) 1px, transparent 0);
 		background-size: 3px 3px;
 	}

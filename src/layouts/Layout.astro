@@ -72,11 +72,11 @@ const canonicalUrl = canonical ?? currentUrl;
 			const canvas = document.getElementById('particle-canvas');
 			const ctx = canvas?.getContext('2d');
 			const particles = [];
-			const pointer = { x: -9999, y: -9999, radius: 130 };
+			const pointer = { x: -9999, y: -9999, radius: 145 };
 			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 			if (canvas && ctx && !prefersReducedMotion) {
-				const palette = ['rgba(130,146,64,0.34)', 'rgba(79,77,77,0.22)', 'rgba(130,146,64,0.2)'];
+				const palette = ['rgba(130,146,64,0.58)', 'rgba(110,125,54,0.48)', 'rgba(79,77,77,0.38)'];
 
 				const setCanvasSize = () => {
 					const ratio = window.devicePixelRatio || 1;
@@ -89,27 +89,27 @@ const canonicalUrl = canonical ?? currentUrl;
 
 				const createParticles = () => {
 					particles.length = 0;
-					const count = Math.min(130, Math.max(55, Math.floor(window.innerWidth / 12)));
+					const count = Math.min(170, Math.max(74, Math.floor(window.innerWidth / 9)));
 
 					for (let index = 0; index < count; index += 1) {
 						particles.push({
 							x: Math.random() * window.innerWidth,
 							y: Math.random() * window.innerHeight,
-							vx: (Math.random() - 0.5) * 0.5,
-							vy: (Math.random() - 0.5) * 0.5,
-							size: Math.random() * 2.2 + 0.8,
+							vx: (Math.random() - 0.5) * 0.72,
+							vy: (Math.random() - 0.5) * 0.72,
+							size: Math.random() * 2.45 + 0.95,
 							color: palette[Math.floor(Math.random() * palette.length)],
 						});
 					}
 				};
 
 				const drawLinks = (a, b, distance) => {
-					const maxDist = 120;
+					const maxDist = 138;
 					if (distance > maxDist) return;
-					const alpha = 0.12 * (1 - distance / maxDist);
+					const alpha = 0.15 * (1 - distance / maxDist);
 					ctx.beginPath();
 					ctx.strokeStyle = `rgba(130,146,64,${alpha})`;
-					ctx.lineWidth = 1;
+					ctx.lineWidth = 0.95;
 					ctx.moveTo(a.x, a.y);
 					ctx.lineTo(b.x, b.y);
 					ctx.stroke();
@@ -127,15 +127,15 @@ const canonicalUrl = canonical ?? currentUrl;
 						if (dist < pointer.radius) {
 							const force = (pointer.radius - dist) / pointer.radius;
 							const angle = Math.atan2(dy, dx);
-							p.vx -= Math.cos(angle) * force * 0.03;
-							p.vy -= Math.sin(angle) * force * 0.03;
+							p.vx -= Math.cos(angle) * force * 0.038;
+							p.vy -= Math.sin(angle) * force * 0.038;
 						}
 
 						p.x += p.vx;
 						p.y += p.vy;
 
-						p.vx *= 0.985;
-						p.vy *= 0.985;
+						p.vx *= 0.992;
+						p.vy *= 0.992;
 
 						if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
 						if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
@@ -145,8 +145,11 @@ const canonicalUrl = canonical ?? currentUrl;
 
 						ctx.beginPath();
 						ctx.fillStyle = p.color;
+						ctx.shadowBlur = 8;
+						ctx.shadowColor = 'rgba(130,146,64,0.27)';
 						ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
 						ctx.fill();
+						ctx.shadowBlur = 0;
 
 						for (let j = i + 1; j < particles.length; j += 1) {
 							const q = particles[j];
