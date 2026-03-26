@@ -11,7 +11,9 @@ html {
 @layer base {
 	body {
 		@apply bg-brand-bg text-brand-main font-sans antialiased;
-		background-image: radial-gradient(circle at 10% 10%, rgb(130 146 64 / 0.06), transparent 42%);
+		background-color: #eef0ef;
+		background-image: linear-gradient(125deg, rgb(248 249 247 / 0.97), rgb(236 238 236 / 0.97));
+		background-attachment: fixed;
 	}
 
 	h1,
@@ -28,7 +30,7 @@ html {
 	}
 
 	::selection {
-		background: rgb(130 146 64 / 0.22);
+		background: rgb(147 145 139 / 0.24);
 		color: #4f4d4d;
 	}
 
@@ -59,21 +61,152 @@ html {
 		@apply rounded-3xl border border-brand-main/10 bg-white/70 shadow-soft backdrop-blur;
 	}
 
-	.particle-canvas {
+	.ambient-bg {
 		position: fixed;
 		inset: 0;
 		z-index: 0;
 		pointer-events: none;
-		opacity: 1;
+		overflow: hidden;
+		isolation: isolate;
 	}
 
-	.grain-overlay {
-		position: fixed;
+	.ambient-bg::before {
+		content: '';
+		position: absolute;
+		inset: -18%;
+		z-index: 2;
+		opacity: 0.07;
+		mix-blend-mode: soft-light;
+		background:
+			radial-gradient(ellipse 80% 50% at 20% 40%, rgb(143 138 118 / 0.3), transparent),
+			radial-gradient(ellipse 60% 70% at 75% 60%, rgb(79 77 77 / 0.2), transparent),
+			radial-gradient(ellipse 90% 40% at 50% 90%, rgb(191 184 162 / 0.25), transparent);
+		animation: ambient-mesh 20s ease-in-out infinite alternate;
+	}
+
+	.ambient-bg::after {
+		content: '';
+		position: absolute;
 		inset: 0;
+		z-index: 3;
+		opacity: 0.04;
+		background: 
+			linear-gradient(217deg, rgb(143 138 118 / 0.18), transparent 70%),
+			linear-gradient(127deg, rgb(191 184 162 / 0.14), transparent 70%),
+			linear-gradient(336deg, rgb(79 77 77 / 0.12), transparent 70%);
+		animation: ambient-shimmer 16s ease-in-out infinite alternate;
+	}
+
+	.ambient-bg__layer {
+		position: absolute;
+		width: 78vmax;
+		height: 78vmax;
 		z-index: 1;
-		pointer-events: none;
-		opacity: 0.045;
-		background-image: radial-gradient(circle at 1px 1px, rgb(79 77 77 / 0.25) 1px, transparent 0);
-		background-size: 3px 3px;
+		border-radius: 999px;
+		filter: blur(72px);
+		opacity: 0.22;
+		mix-blend-mode: multiply;
+		transform-origin: center;
+		will-change: transform;
+	}
+
+	.ambient-bg__layer--one {
+		left: -18vmax;
+		top: -16vmax;
+		background: radial-gradient(circle at 30% 30%, rgb(143 138 118 / 0.34), rgb(143 138 118 / 0));
+		animation: ambient-float-one 24s ease-in-out infinite alternate;
+	}
+
+	.ambient-bg__layer--two {
+		right: -26vmax;
+		top: 6vmax;
+		background: radial-gradient(circle at 36% 40%, rgb(79 77 77 / 0.36), rgb(79 77 77 / 0));
+		animation: ambient-float-two 30s ease-in-out infinite alternate;
+	}
+
+	.ambient-bg__layer--three {
+		left: 8vmax;
+		bottom: -34vmax;
+		background: radial-gradient(circle at 45% 34%, rgb(191 184 162 / 0.3), rgb(191 184 162 / 0));
+		animation: ambient-float-three 28s ease-in-out infinite alternate;
+	}
+}
+
+@keyframes ambient-mesh {
+	0% {
+		transform: scale(1) rotate(0deg);
+		opacity: 0.07;
+	}
+	50% {
+		opacity: 0.1;
+	}
+	100% {
+		transform: scale(1.1) rotate(8deg);
+		opacity: 0.07;
+	}
+}
+
+@keyframes ambient-shimmer {
+	0% {
+		opacity: 0.04;
+		transform: translateX(0) translateY(0);
+	}
+	100% {
+		opacity: 0.06;
+		transform: translateX(3%) translateY(-2%);
+	}
+}
+
+@keyframes ambient-float-one {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	100% {
+		transform: translate3d(11vmax, 6vmax, 0) scale(1.16) rotate(14deg);
+	}
+}
+
+@keyframes ambient-float-two {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	100% {
+		transform: translate3d(-9vmax, 8vmax, 0) scale(1.2) rotate(-12deg);
+	}
+}
+
+@keyframes ambient-float-three {
+	0% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	100% {
+		transform: translate3d(10vmax, -7vmax, 0) scale(1.22) rotate(11deg);
+	}
+}
+
+@media (max-width: 768px) {
+	.ambient-bg__layer {
+		width: 95vmax;
+		height: 95vmax;
+		filter: blur(58px);
+		opacity: 0.28;
+	}
+
+	.ambient-bg__layer--one {
+		animation-duration: 20s;
+	}
+
+	.ambient-bg__layer--two {
+		animation-duration: 24s;
+	}
+
+	.ambient-bg__layer--three {
+		animation-duration: 22s;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ambient-bg__layer {
+		animation: none;
 	}
 }

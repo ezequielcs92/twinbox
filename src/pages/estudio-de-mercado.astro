@@ -1,16 +1,20 @@
 ---
 import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
 ---
 
 <ServiceLayout
-	title='Estudios de Mercado Digitales'
+	title='Estudios de Mercado'
 	description='Toma decisiones estratégicas basadas en datos reales para reducir riesgos y detectar oportunidades de crecimiento comercial.'
+	heroImage='/images/estudio-de-mercado/cambio-7-estudio-de-mercado.png'
+	heroImageAlt='Análisis y estrategia para estudio de mercado'
 >
 	<div class='space-y-8'>
 		<section class='overflow-hidden rounded-3xl border border-brand-main/10 bg-white/75 shadow-soft'>
 			<div class='grid gap-0 lg:grid-cols-[1.15fr,0.85fr]'>
 				<div class='p-8 md:p-10'>
-					<h2 class='mt-4 font-heading text-3xl leading-tight md:text-4xl'>Estudios de Mercado Digitales y de Ventas</h2>
+					<h2 class='mt-4 font-heading text-3xl leading-tight md:text-4xl'>Estudios de Mercado y de Ventas</h2>
 					<p class='mt-4 font-medium text-brand-main'>Toma decisiones estratégicas basadas en datos reales</p>
 					<p class='mt-5 leading-relaxed text-brand-main/85'>En un entorno digital cada vez más competitivo, tomar decisiones basadas en suposiciones puede costar tiempo, dinero y oportunidades. Nuestros Estudios de Mercado enfocados en lo digital y las ventas están diseñados para ayudar a empresas y negocios a comprender con claridad su mercado, su cliente ideal y el verdadero potencial de sus productos o servicios.</p>
 					<p class='mt-3 leading-relaxed text-brand-main/85'>Analizamos datos reales del comportamiento del consumidor en plataformas digitales para convertir la información en estrategias accionables que impulsen ventas y crecimiento.</p>
@@ -67,14 +71,21 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 			</div>
 		</section>
 
-		<section class='grid gap-6 lg:grid-cols-2'>
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+		<Tabs
+			tabs={[
+				{ id: 'enfoque', label: 'Enfoque y Resultados' },
+				{ id: 'empresas', label: 'Empresas Ideales' },
+				{ id: 'entregables', label: 'Entregables' },
+				{ id: 'crecimiento', label: 'Crecimiento' },
+			]}
+		>
+			<TabPanel id='enfoque'>
 				<h2 class='font-heading text-2xl'>Enfoque 100% digital y orientado a resultados</h2>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>A diferencia de los estudios tradicionales, nuestro enfoque está completamente orientado al ecosistema digital y a la conversión. Utilizamos datos de plataformas como redes sociales, buscadores, comportamiento de usuarios y métricas reales para entender qué está funcionando, qué no y por qué.</p>
 				<p class='mt-3 text-sm leading-relaxed text-brand-main/85'>El objetivo no es solo informar, sino optimizar la toma de decisiones comerciales y de marketing.</p>
-			</article>
+			</TabPanel>
 
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='empresas'>
 				<h2 class='font-heading text-2xl'>¿Para qué tipo de empresas es ideal?</h2>
 				<p class='mt-4 text-sm text-brand-main/85'>Este servicio es ideal para:</p>
 				<ul class='mt-3 space-y-2 text-sm text-brand-main/85'>
@@ -84,11 +95,9 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>● Emprendedores que necesitan validar ideas de negocio</li>
 					<li>● Empresas que invierten en marketing digital y quieren maximizar resultados</li>
 				</ul>
-			</article>
-		</section>
+			</TabPanel>
 
-		<section class='grid gap-6 lg:grid-cols-2'>
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='entregables'>
 				<h2 class='font-heading text-2xl'>Entregables claros y accionables</h2>
 				<p class='mt-4 text-sm text-brand-main/85'>Al finalizar el estudio, entregamos:</p>
 				<ul class='mt-3 space-y-2 text-sm text-brand-main/85'>
@@ -98,14 +107,14 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>● Lineamientos para marketing digital y publicidad</li>
 					<li>● Bases para la creación de estrategias comerciales y de contenido</li>
 				</ul>
-			</article>
+			</TabPanel>
 
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='crecimiento'>
 				<h2 class='font-heading text-2xl'>Convierte datos en crecimiento</h2>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Un buen estudio de mercado no solo describe el panorama, define el camino a seguir. Nuestro servicio te permite reducir riesgos, optimizar tu inversión en marketing y aumentar la probabilidad de éxito en cada decisión comercial.</p>
 				<p class='mt-4 text-sm font-medium text-brand-main/85'>Menos suposiciones, más estrategia. Menos gasto, más resultados.</p>
 				<p class='mt-6 text-sm font-semibold text-brand-accent'>Solicita tu estudio de mercado digital y comienza a tomar decisiones basadas en datos reales.</p>
-			</article>
-		</section>
+			</TabPanel>
+		</Tabs>
 	</div>
 </ServiceLayout>

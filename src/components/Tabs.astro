@@ -1,0 +1,120 @@
+---
+interface Props {
+	tabs: Array<{
+		id: string;
+		label: string;
+		icon?: string;
+	}>;
+}
+
+const { tabs } = Astro.props;
+---
+
+<div class='tabs-container' data-tabs>
+	<div class='tab-buttons'>
+		{tabs.map((tab, index) => (
+			<button
+				class:list={['tab-button', { active: index === 0 }]}
+				data-tab-id={tab.id}
+				aria-selected={index === 0}
+				role='tab'
+			>
+				{tab.icon && (
+					<span class='inline-flex h-5 w-5 items-center justify-center text-brand-accent'>
+						<Fragment set:html={tab.icon} />
+					</span>
+				)}
+				<span>{tab.label}</span>
+			</button>
+		))}
+	</div>
+	<div class='tab-panels'>
+		<slot />
+	</div>
+</div>
+
+<style>
+	.tabs-container {
+		width: 100%;
+	}
+
+	.tab-buttons {
+		display: flex;
+		gap: 1rem;
+		border-bottom: 2px solid hsl(var(--color-brand-main) / 0.1);
+		overflow-x: auto;
+		scroll-behavior: smooth;
+	}
+
+	.tab-button {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 1rem 1.5rem;
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: hsl(var(--color-brand-main) / 0.6);
+		background: none;
+		border: none;
+		border-bottom: 3px solid transparent;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		white-space: nowrap;
+	}
+
+	.tab-button:hover {
+		color: hsl(var(--color-brand-main) / 0.9);
+	}
+
+	.tab-button.active {
+		color: hsl(var(--color-brand-accent));
+		border-bottom-color: hsl(var(--color-brand-accent));
+	}
+
+	.tab-panels {
+		margin-top: 1.5rem;
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const tabContainers = document.querySelectorAll('[data-tabs]');
+
+		tabContainers.forEach((container) => {
+			const buttons = container.querySelectorAll('[role="tab"]');
+			const panels = container.querySelectorAll('[role="tabpanel"]');
+
+			buttons.forEach((button) => {
+				button.addEventListener('click', () => {
+					const tabId = button.getAttribute('data-tab-id');
+
+					// Remove active from all buttons
+					buttons.forEach((btn) => {
+						btn.classList.remove('active');
+						btn.setAttribute('aria-selected', 'false');
+					});
+
+					// Hide all panels
+					panels.forEach((panel) => {
+						panel.style.display = 'none';
+					});
+
+					// Activate clicked button and show panel
+					button.classList.add('active');
+					button.setAttribute('aria-selected', 'true');
+					const activePanel = container.querySelector(
+						`[data-tab-panel="${tabId}"]`
+					);
+					if (activePanel) {
+						activePanel.style.display = 'block';
+					}
+				});
+			});
+
+			// Show first panel by default
+			panels.forEach((panel, index) => {
+				panel.style.display = index === 0 ? 'block' : 'none';
+			});
+		});
+	});
+</script>

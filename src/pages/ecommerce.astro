@@ -1,10 +1,16 @@
 ---
 import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
 ---
 
 <ServiceLayout
-	title='Gestión de E-commerce y Motores de Venta Online'
+	title='Gestión de E‑commerce y Motores de Venta Online'
 	description='Servicios integrales de gestión, administración y optimización de e-commerce para maximizar reservas, ventas y visibilidad en plataformas digitales.'
+	heroImage='/images/ecommerce/foto-e-commerce.png'
+	heroImageAlt='Gestión de e-commerce y motores de venta online'
+	heroSecondaryImage='/images/ecommerce/logos-e-commerce.png'
+	heroSecondaryImageAlt='Logos de plataformas de e-commerce'
 >
 	<div class='space-y-8'>
 		<section class='overflow-hidden rounded-3xl border border-brand-main/10 bg-white/75 shadow-soft'>
@@ -28,8 +34,17 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 			</div>
 		</section>
 
-		<section class='grid gap-6 xl:grid-cols-2'>
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+		<Tabs
+			tabs={[
+				{ id: 'plataformas', label: 'Plataformas de Venta' },
+				{ id: 'data', label: 'Gestión de Data' },
+				{ id: 'calendarios', label: 'Disponibilidad' },
+				{ id: 'reportes', label: 'Reportes' },
+				{ id: 'sistema', label: 'Sistema de Ventas' },
+				{ id: 'resultados', label: 'Más Resultados' },
+			]}
+		>
+			<TabPanel id='plataformas'>
 				<h2 class='font-heading text-2xl'>Administración y Manejo de Plataformas de Venta</h2>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Gestionamos y optimizamos tus canales de venta digital, asegurando información actualizada, procesos claros y experiencia de compra optimizada para el usuario.</p>
 				<p class='mt-4 text-sm text-brand-main/85'>Trabajamos con plataformas como:</p>
@@ -45,9 +60,9 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>● Mr. & Mrs. Smith</li>
 				</ul>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Cada plataforma se administra de acuerdo a sus lineamientos, algoritmos y mejores prácticas para mejorar posicionamiento y conversión.</p>
-			</article>
+			</TabPanel>
 
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='data'>
 				<h2 class='font-heading text-2xl'>Actualización y Gestión de Data</h2>
 				<p class='mt-4 text-sm text-brand-main/85'>Mantenemos toda tu información correcta, actualizada y sincronizada:</p>
 				<ul class='mt-3 space-y-2 text-sm text-brand-main/85'>
@@ -60,16 +75,14 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>● Políticas, horarios y condiciones</li>
 				</ul>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Una correcta gestión de datos y evita errores, mejora la experiencia del cliente y aumenta la confianza y las ventas.</p>
-			</article>
-		</section>
+			</TabPanel>
 
-		<section class='grid gap-6 lg:grid-cols-2'>
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='calendarios'>
 				<h2 class='font-heading text-2xl'>Calendarios y Control de Disponibilidad</h2>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Administramos calendarios de reservas y disponibilidad para evitar sobreventas, errores operativos y pérdidas de ingresos, asegurando un flujo de ventas ordenado y eficiente.</p>
-			</article>
+			</TabPanel>
 
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='reportes'>
 				<h2 class='font-heading text-2xl'>Reportes y Análisis de Resultados</h2>
 				<p class='mt-4 text-sm text-brand-main/85'>Generamos reportes claros y accionables para evaluar el desempeño de tus plataformas:</p>
 				<ul class='mt-3 space-y-2 text-sm text-brand-main/85'>
@@ -79,11 +92,9 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>● Oportunidades de optimización</li>
 				</ul>
 				<p class='mt-4 text-sm text-brand-main/85'>Los datos se convierten en decisiones estratégicas.</p>
-			</article>
-		</section>
+			</TabPanel>
 
-		<section class='grid gap-6 lg:grid-cols-2'>
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='sistema'>
 				<h2 class='font-heading text-2xl'>Todo tu sistema de ventas, 100% online</h2>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Nuestro servicio está diseñado para que tu negocio opere de forma digital, escalable y profesional, integrando tecnología, procesos y análisis en un solo lugar.</p>
 				<p class='mt-4 text-sm font-semibold text-brand-main'>Ideal para:</p>
@@ -94,13 +105,13 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>● Negocios con venta online</li>
 					<li>● Marcas que dependen de reservas digitales</li>
 				</ul>
-			</article>
+			</TabPanel>
 
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
+			<TabPanel id='resultados'>
 				<h2 class='font-heading text-2xl'>Más control, más ventas, menos complicaciones</h2>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>En Twinbox transformamos tus plataformas de venta en motores activos de ingresos, cuidando cada detalle operativo para maximizar resultados.</p>
 				<p class='mt-6 text-sm font-semibold text-brand-accent'>Solicita la gestión profesional de tus motores de venta online.</p>
-			</article>
-		</section>
+			</TabPanel>
+		</Tabs>
 	</div>
 </ServiceLayout>

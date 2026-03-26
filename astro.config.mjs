@@ -11,5 +11,10 @@ export default defineConfig({
 	site: 'https://www.twinbox.mx',
 	output: 'server',
 	adapter: vercel(),
+	vite: {
+		server: {
+			allowedHosts: ['.trycloudflare.com'],
+		},
+	},
 	integrations: [mdx(), tailwind({ applyBaseStyles: false }), sitemap()],
 });

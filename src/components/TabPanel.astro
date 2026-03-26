@@ -1,0 +1,31 @@
+---
+interface Props {
+	id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div data-tab-panel={id} role='tabpanel'>
+	<slot />
+</div>
+
+<style>
+	div[role='tabpanel'] {
+		border-radius: 1.5rem;
+		border: 1px solid hsl(var(--color-brand-main) / 0.1);
+		background: rgb(255 255 255 / 0.75);
+		padding: 1.75rem;
+		box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+		animation: fadeIn 0.3s ease-in-out;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+</style>

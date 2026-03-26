@@ -59,8 +59,11 @@ const canonicalUrl = canonical ?? currentUrl;
 		})} />
 	</head>
 	<body class='relative isolate bg-brand-bg text-brand-main'>
-		<canvas id='particle-canvas' class='particle-canvas' aria-hidden='true'></canvas>
-		<div class='grain-overlay' aria-hidden='true'></div>
+		<div class='ambient-bg' aria-hidden='true'>
+			<div class='ambient-bg__layer ambient-bg__layer--one'></div>
+			<div class='ambient-bg__layer ambient-bg__layer--two'></div>
+			<div class='ambient-bg__layer ambient-bg__layer--three'></div>
+		</div>
 		<div class='relative z-10'>
 			<Navbar />
 			<main>
@@ -68,126 +71,6 @@ const canonicalUrl = canonical ?? currentUrl;
 			</main>
 			<Footer />
 		</div>
-		<script is:inline>
-			const canvas = document.getElementById('particle-canvas');
-			const ctx = canvas?.getContext('2d');
-			const particles = [];
-			const pointer = { x: -9999, y: -9999, radius: 145 };
-			const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-			if (canvas && ctx && !prefersReducedMotion) {
-				const palette = ['rgba(130,146,64,0.58)', 'rgba(110,125,54,0.48)', 'rgba(79,77,77,0.38)'];
-
-				const setCanvasSize = () => {
-					const ratio = window.devicePixelRatio || 1;
-					canvas.width = Math.floor(window.innerWidth * ratio);
-					canvas.height = Math.floor(window.innerHeight * ratio);
-					canvas.style.width = `${window.innerWidth}px`;
-					canvas.style.height = `${window.innerHeight}px`;
-					ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-				};
-
-				const createParticles = () => {
-					particles.length = 0;
-					const count = Math.min(170, Math.max(74, Math.floor(window.innerWidth / 9)));
-
-					for (let index = 0; index < count; index += 1) {
-						particles.push({
-							x: Math.random() * window.innerWidth,
-							y: Math.random() * window.innerHeight,
-							vx: (Math.random() - 0.5) * 0.72,
-							vy: (Math.random() - 0.5) * 0.72,
-							size: Math.random() * 2.45 + 0.95,
-							color: palette[Math.floor(Math.random() * palette.length)],
-						});
-					}
-				};
-
-				const drawLinks = (a, b, distance) => {
-					const maxDist = 138;
-					if (distance > maxDist) return;
-					const alpha = 0.15 * (1 - distance / maxDist);
-					ctx.beginPath();
-					ctx.strokeStyle = `rgba(130,146,64,${alpha})`;
-					ctx.lineWidth = 0.95;
-					ctx.moveTo(a.x, a.y);
-					ctx.lineTo(b.x, b.y);
-					ctx.stroke();
-				};
-
-				const animate = () => {
-					ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-					for (let i = 0; i < particles.length; i += 1) {
-						const p = particles[i];
-
-						const dx = pointer.x - p.x;
-						const dy = pointer.y - p.y;
-						const dist = Math.hypot(dx, dy);
-						if (dist < pointer.radius) {
-							const force = (pointer.radius - dist) / pointer.radius;
-							const angle = Math.atan2(dy, dx);
-							p.vx -= Math.cos(angle) * force * 0.038;
-							p.vy -= Math.sin(angle) * force * 0.038;
-						}
-
-						p.x += p.vx;
-						p.y += p.vy;
-
-						p.vx *= 0.992;
-						p.vy *= 0.992;
-
-						if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
-						if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
-
-						p.x = Math.max(0, Math.min(window.innerWidth, p.x));
-						p.y = Math.max(0, Math.min(window.innerHeight, p.y));
-
-						ctx.beginPath();
-						ctx.fillStyle = p.color;
-						ctx.shadowBlur = 8;
-						ctx.shadowColor = 'rgba(130,146,64,0.27)';
-						ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-						ctx.fill();
-						ctx.shadowBlur = 0;
-
-						for (let j = i + 1; j < particles.length; j += 1) {
-							const q = particles[j];
-							const distance = Math.hypot(p.x - q.x, p.y - q.y);
-							drawLinks(p, q, distance);
-						}
-					}
-
-					window.requestAnimationFrame(animate);
-				};
-
-				setCanvasSize();
-				createParticles();
-				animate();
-
-				window.addEventListener('resize', () => {
-					setCanvasSize();
-					createParticles();
-				});
-
-				window.addEventListener('mousemove', (event) => {
-					pointer.x = event.clientX;
-					pointer.y = event.clientY;
-				});
-
-				window.addEventListener('touchmove', (event) => {
-					const touch = event.touches[0];
-					if (!touch) return;
-					pointer.x = touch.clientX;
-					pointer.y = touch.clientY;
-				}, { passive: true });
-
-				window.addEventListener('mouseleave', () => {
-					pointer.x = -9999;
-					pointer.y = -9999;
-				});
-			}
-		</script>
 		<script is:inline>
 			const revealElements = document.querySelectorAll('[data-reveal]');
 			const observer = new IntersectionObserver(

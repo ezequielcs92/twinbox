@@ -1,10 +1,14 @@
 ---
 import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
 ---
 
 <ServiceLayout
 	title='Cursos y Capacitaciones'
-	description='Aprende los principios del marketing digital desde cero y domina las herramientas que hoy hacen crecer a las marcas.'
+	description='CURSOS COMPLETOS DE MARKETING DIGITAL PARA EMPRESAS EMPRENDEDORES Y NEGOCIOS. CAPACITACIONES PARA TUS COMMUNITY MANAGERS Y MUCHO MAS!'
+	heroImage='/images/cursos/FOTO CURSOS.png'
+	heroImageAlt='Cursos y Capacitaciones de Marketing Digital'
 >
 	<div class='space-y-8'>
 		<section class='overflow-hidden rounded-3xl border border-brand-main/10 bg-white/75 shadow-soft'>
@@ -28,10 +32,20 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 			</div>
 		</section>
 
-		<section class='grid gap-6 lg:grid-cols-2'>
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
-				<h2 class='font-heading text-3xl'>PRINCIPIOS DEL MARKETING</h2>
-				<ul class='mt-5 space-y-2 text-sm text-brand-main/85'>
+		<Tabs
+			tabs={[
+				{
+					id: 'principios',
+					label: 'Principios del Marketing',
+				},
+				{
+					id: 'aplicado',
+					label: 'Marketing Aplicado',
+				},
+			]}
+		>
+			<TabPanel id='principios'>
+				<ul class='grid gap-2 text-sm text-brand-main/85 md:grid-cols-2'>
 					<li>- Bases del marketing</li>
 					<li>- Bases del redes sociales</li>
 					<li>- Facebook, Instagram, Twitter y TikTok</li>
@@ -49,11 +63,10 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>- Neuro-marketing</li>
 					<li>- Psicología del cliente</li>
 				</ul>
-			</article>
+			</TabPanel>
 
-			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
-				<h2 class='font-heading text-3xl'>MARKETING APLICADO</h2>
-				<p class='mt-5 text-sm text-brand-main/85'>Estudio de mercado.</p>
+			<TabPanel id='aplicado'>
+				<p class='text-sm text-brand-main/85'>Estudio de mercado.</p>
 				<p class='mt-2 text-sm text-brand-main/85'>Lectura de estadísitcas.</p>
 				<ul class='mt-4 space-y-2 text-sm text-brand-main/85'>
 					<li>- Tipos de campaña.</li>
@@ -64,22 +77,25 @@ import ServiceLayout from '../layouts/ServiceLayout.astro';
 					<li>- Presupuesto y seguimiento de campañas de ADS.</li>
 					<li>- Uso del administrador de anuncios.</li>
 				</ul>
-			</article>
-		</section>
+			</TabPanel>
+		</Tabs>
 
 		<section class='grid gap-6 xl:grid-cols-3'>
 			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
-				<h3 class='font-heading text-2xl'>CURSO PERSONAL 2 dias 4hs $7,000 pesos</h3>
+				<h3 class='font-heading text-2xl'>CURSO PERSONAL</h3>
+				<p class='mt-2 text-sm text-brand-main/80'>2 días - 4 horas</p>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Incluye 15 días de asesoramiento post curso - 2 PDF cursos completo - certificado de asistencia</p>
 			</article>
 
 			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
-				<h3 class='font-heading text-2xl'>CURSO EMPRESAS 2 dias 4hs $2,500 pesos P/PERSONA</h3>
+				<h3 class='font-heading text-2xl'>CURSO EMPRESAS</h3>
+				<p class='mt-2 text-sm text-brand-main/80'>2 días - 4 horas</p>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Minimo 4 y hasta 10 personas, incluye asesoría de 15 días post curso - 2 PDF cursos completo - certificado de asistencia</p>
 			</article>
 
 			<article class='rounded-3xl border border-brand-main/10 bg-white/75 p-7 shadow-soft'>
-				<h3 class='font-heading text-2xl'>KNOW HOW 1mes $30,000 pesos</h3>
+				<h3 class='font-heading text-2xl'>KNOW HOW</h3>
+				<p class='mt-2 text-sm text-brand-main/80'>1 mes</p>
 				<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Buscamos a todos los integrantes que tu necesitas para hacer tu departamento de marketing</p>
 				<p class='mt-2 text-sm leading-relaxed text-brand-main/85'>inhouse y los capacitamos individualmente para que te den resultados inmediatos.</p>
 			</article>
