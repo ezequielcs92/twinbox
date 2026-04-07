@@ -5,13 +5,14 @@ import Button from '../components/Button.astro';
 interface Props {
 	title: string;
 	description: string;
+	hideDescription?: boolean;
 	heroImage?: string;
 	heroImageAlt?: string;
 	heroSecondaryImage?: string;
 	heroSecondaryImageAlt?: string;
 }
 
-const { title, description, heroImage, heroImageAlt, heroSecondaryImage, heroSecondaryImageAlt } = Astro.props;
+const { title, description, hideDescription = false, heroImage, heroImageAlt, heroSecondaryImage, heroSecondaryImageAlt } = Astro.props;
 ---
 
 <Layout title={`${title} | Twinbox Agency`} description={description}>
@@ -21,7 +22,7 @@ const { title, description, heroImage, heroImageAlt, heroSecondaryImage, heroSec
 				<div>
 					<p class='text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Servicio Especializado</p>
 					<h1 class='mt-3 font-heading text-4xl leading-tight md:text-6xl'>{title}</h1>
-					<p class='mt-6 text-lg leading-relaxed text-brand-main/80'>{description}</p>
+					{!hideDescription && <p class='mt-6 text-lg leading-relaxed text-brand-main/80'>{description}</p>}
 					{heroSecondaryImage && (
 						<img
 							src={heroSecondaryImage}
@@ -46,7 +47,7 @@ const { title, description, heroImage, heroImageAlt, heroSecondaryImage, heroSec
 			<>
 				<p class='text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Servicio Especializado</p>
 				<h1 class='mt-3 max-w-4xl font-heading text-4xl leading-tight md:text-6xl'>{title}</h1>
-				<p class='mt-6 max-w-3xl text-lg leading-relaxed text-brand-main/80'>{description}</p>
+				{!hideDescription && <p class='mt-6 max-w-3xl text-lg leading-relaxed text-brand-main/80'>{description}</p>}
 			</>
 		)}
 	</section>
