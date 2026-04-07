@@ -1,0 +1,159 @@
+---
+import ServiceLayout from '../layouts/ServiceLayout.astro';
+import Tabs from '../components/Tabs.astro';
+import TabPanel from '../components/TabPanel.astro';
+---
+
+<ServiceLayout
+	title='Diseño y Desarrollo Web y Apps'
+	description='Construimos activos digitales que generan ingresos. Webs y apps que convierten visitantes en clientes, con tecnología de punta y enfoque en resultados medibles.'
+>
+	<div class='-mt-10 space-y-8 md:-mt-14'>
+		<section>
+			<Tabs
+				tabs={[
+					{ id: 'web', label: 'Desarrollo Web' },
+					{ id: 'uxui', label: 'Diseño UX/UI' },
+					{ id: 'elearning', label: 'E-learning y Membresías' },
+					{ id: 'ecommerce', label: 'E-commerce' },
+					{ id: 'automatizacion', label: 'Automatización' }
+				]}
+			>
+				<TabPanel id='web'>
+					<h2 class='font-heading text-3xl'>Desarrollo Web de Alto Rendimiento</h2>
+					<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>No solo hacemos webs, construimos activos digitales optimizados para el futuro.</p>
+					<div class='mt-6 space-y-5'>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Migracion de WordPress a Jamstack</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Transicion completa hacia arquitecturas estaticas para eliminar problemas de mantenimiento y lentitud.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Desarrollo con Frameworks Modernos</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Creacion de aplicaciones y sitios con Astro, Next.js y React para un renderizado ultrarapido.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Optimizacion de Core Web Vitals</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Auditoria y correccion de metricas de carga (LCP, FID, CLS) para alcanzar el 100/100 en Google PageSpeed.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>PWA (Progressive Web Apps)</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Sitios web que funcionan como aplicaciones moviles, permitiendo acceso offline y notificaciones push.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Mantenimiento Proactivo de Codigo</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Soporte tecnico especializado para asegurar que el stack tecnologico este siempre actualizado y seguro.</p>
+						</article>
+					</div>
+				</TabPanel>
+
+				<TabPanel id='uxui'>
+					<h2 class='font-heading text-3xl'>Diseño UX/UI y Prototipado</h2>
+					<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Diseñamos interfaces que convierten visitantes en clientes fieles.</p>
+					<div class='mt-6 space-y-5'>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Arquitectura de Informacion</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Estructuracion de menus y jerarquias de contenido para una navegacion intuitiva.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Diseño de Sistemas (Design Systems)</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Creacion de librerias de componentes (botones, tipografías, colores) para mantener la consistencia de marca.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Prototipado Interactivo en Figma</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Entregamos maquetas funcionales para que veas como se siente el sitio antes de programarlo.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Auditorias de Usabilidad</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Analisis de sitios actuales para detectar donde se pierden los usuarios y como mejorar la tasa de conversion.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Diseño de Dashboards y Paneles</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Creacion de interfaces administrativas personalizadas, limpias y faciles de usar.</p>
+						</article>
+					</div>
+				</TabPanel>
+
+				<TabPanel id='elearning'>
+					<h2 class='font-heading text-3xl'>Soluciones de E-learning y Membresías</h2>
+					<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Plataformas robustas para monetizar tu conocimiento y contenido.</p>
+					<div class='mt-6 space-y-5'>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>LMS a Medida (Learning Management Systems)</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Dashboards para alumnos con seguimiento de progreso, cuestionarios y certificados.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Gestion de Videoteca con Cloudflare Stream</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Integracion de video profesional que evita descargas no autorizadas y optimiza el ancho de banda.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Sistemas de Suscripcion Recurrente</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Configuracion de planes mensuales/anuales con acceso automatizado segun el nivel de pago.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Comunidades Privadas</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Integracion de foros o areas de discusion exclusivas para miembros dentro de la plataforma.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Automatizacion de Certificaciones</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Generacion y envio automatico de diplomas PDF al completar modulos.</p>
+						</article>
+					</div>
+				</TabPanel>
+
+				<TabPanel id='ecommerce'>
+					<h2 class='font-heading text-3xl'>E-commerce y Conversion Avanzada</h2>
+					<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Llevamos la experiencia de compra al maximo nivel de eficiencia.</p>
+					<div class='mt-6 space-y-5'>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Tiendas Headless Commerce</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Separamos el diseño del backend para ofrecer una velocidad de compra imposible de alcanzar con plantillas.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Integracion de Pasarelas de Pago</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Configuracion experta de Mercado Pago, Stripe, PayPal y transferencias bancarias automatizadas.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Sistemas de Up-selling y Cross-selling</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Implementacion de logica de "productos recomendados" para aumentar el ticket promedio de venta.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Gestion de Inventario en Tiempo Real</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Sincronizacion de stock entre tu web y tus herramientas de gestion interna (ERP/CRM).</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Optimizacion de Embudo de Pago</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Reduccion de pasos en el checkout para minimizar el abandono de carritos.</p>
+						</article>
+					</div>
+				</TabPanel>
+
+				<TabPanel id='automatizacion'>
+					<h2 class='font-heading text-3xl'>Automatizacion e Integracion de Sistemas</h2>
+					<p class='mt-4 text-sm leading-relaxed text-brand-main/85'>Hacemos que tu tecnologia se comunique entre si para ahorrarte horas de trabajo.</p>
+					<div class='mt-6 space-y-5'>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Conectividad con n8n, Zapier y Make</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Automatizacion de flujos de trabajo complejos entre tu web y mas de 5,000 aplicaciones.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Sincronizacion de CRM</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Los datos de tus clientes viajan automaticamente desde la web hacia Salesforce, Hubspot o Pipedrive.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Notificaciones por WhatsApp</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Envio automatico de confirmaciones, recordatorios de citas o alertas de pago por chat.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Backends Escalables con Supabase</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Gestion de bases de datos relacionales con autenticacion de usuarios integrada y segura.</p>
+						</article>
+						<article class='rounded-2xl border border-brand-main/10 bg-brand-bg/60 p-5'>
+							<h3 class='font-heading text-xl'>Webhooks y APIs Personalizadas</h3>
+							<p class='mt-3 text-sm text-brand-main/85'>Desarrollo de conexiones a medida para software especifico de tu industria.</p>
+						</article>
+					</div>
+				</TabPanel>
+			</Tabs>
+		</section>
+	</div>
+</ServiceLayout>
