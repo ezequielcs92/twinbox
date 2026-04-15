@@ -27,33 +27,34 @@ const services = [
 ---
 
 <Layout>
-	<section id='hero' class='container-brand section-space'>
-		<div class='grid items-center gap-12 lg:grid-cols-2'>
-			<div data-reveal>
-				<p class='text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Agencia de publicidad y marketing digital en México</p>
-				<h1 class='mt-4 font-heading text-5xl leading-tight md:text-7xl'>AGENCIA DE PUBLICIDAD Y MARKETING DIGITAL EN MÉXICO</h1>
-				<p class='mt-6 max-w-xl text-lg leading-relaxed text-brand-main/80'>Con más de 10 años de experiencia, ayudamos a empresas y negocios a posicionarse, vender y crecer con una operación digital integral.</p>
-				<div class='mt-10 flex flex-wrap gap-4'>
-					<Button href='/contacto'>CONTACTANOS</Button>
-					<Button href='/paquetes' variant='outline'>PAQUETES</Button>
-				</div>
-				<div class='mt-10 grid max-w-xl grid-cols-3 gap-3 text-center'>
-					<div class='rounded-2xl border border-brand-main/10 bg-white/65 px-3 py-4'>
-						<p class='font-heading text-2xl'>+10</p>
-						<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Años</p>
-					</div>
-					<div class='rounded-2xl border border-brand-main/10 bg-white/65 px-3 py-4'>
-						<p class='font-heading text-2xl'>+10</p>
-						<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Ciudades</p>
-					</div>
-					<div class='rounded-2xl border border-brand-main/10 bg-white/65 px-3 py-4'>
-						<p class='font-heading text-2xl'>24/7</p>
-						<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Atención</p>
-					</div>
-				</div>
+	<section id='hero' class='w-full'>
+		<!-- Imagen grande arriba, sin fondo, sin padding lateral -->
+		<div class='w-full pt-8' data-reveal>
+			<img src='/images/PORTADA INICIAL copia.png' alt='Equipo Twinbox' class='w-full object-contain' style='max-height: 55vh;' />
+		</div>
+
+		<!-- Texto debajo de la imagen -->
+		<div class='container-brand py-14 text-center flex flex-col items-center' data-reveal>
+			<p class='text-sm font-semibold uppercase tracking-[0.24em] text-brand-accent'>Agencia de publicidad y marketing digital en México</p>
+			<h1 class='mt-4 font-heading text-5xl leading-tight md:text-7xl'>AGENCIA DE PUBLICIDAD Y MARKETING DIGITAL EN MÉXICO</h1>
+			<p class='mt-6 max-w-2xl text-lg leading-relaxed text-brand-main/80'>Con más de 10 años de experiencia, ayudamos a empresas y negocios a posicionarse, vender y crecer con una operación digital integral.</p>
+			<div class='mt-10 flex flex-wrap justify-center gap-4'>
+				<Button href='/contacto'>CONTACTANOS</Button>
+				<Button href='/paquetes' variant='outline'>PAQUETES</Button>
 			</div>
-			<div class='glass-panel p-4' data-reveal>
-				<img src='/images/brand/GEMELOS.webp' alt='Equipo Twinbox' class='w-full rounded-2xl object-contain object-center' />
+			<div class='mt-10 grid w-full max-w-xl grid-cols-3 gap-3 text-center'>
+				<div class='rounded-2xl border border-brand-main/10 px-3 py-4'>
+					<p class='font-heading text-2xl'>+10</p>
+					<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Años</p>
+				</div>
+				<div class='rounded-2xl border border-brand-main/10 px-3 py-4'>
+					<p class='font-heading text-2xl'>+10</p>
+					<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Ciudades</p>
+				</div>
+				<div class='rounded-2xl border border-brand-main/10 px-3 py-4'>
+					<p class='font-heading text-2xl'>24/7</p>
+					<p class='text-xs uppercase tracking-[0.12em] text-brand-main/70'>Atención</p>
+				</div>
 			</div>
 		</div>
 	</section>
