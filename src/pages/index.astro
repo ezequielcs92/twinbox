@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import { CONTACT_INFO } from '../consts';
 
 const services = [
 	{
@@ -113,9 +114,16 @@ const services = [
 			<div data-reveal>
 				<SectionHeading title='Contacto' subtitle='Cuéntanos tu objetivo y preparamos una propuesta estratégica adaptada a tu industria.' />
 				<ul class='mt-8 space-y-3 text-sm text-brand-main/90'>
-					<li>Email: <a href='mailto:twinboxmex@gmail.com' class='text-brand-accent'>twinboxmex@gmail.com</a></li>
-					<li>WhatsApp 1: <a href='https://wa.me/529878004033' class='text-brand-accent' target='_blank' rel='noreferrer'>+52 987 800 4033</a></li>
-					<li>WhatsApp 2: <a href='https://wa.me/529871116712' class='text-brand-accent' target='_blank' rel='noreferrer'>+52 987 111 6712</a></li>
+					<li>Email: <a href={`mailto:${CONTACT_INFO.email}`} class='text-brand-accent'>{CONTACT_INFO.email}</a></li>
+					<li>
+						<a href={CONTACT_INFO.whatsappPrimaryUrl} class='inline-flex rounded-full border border-[#1f8e44]/30 bg-[#e7f8ef] px-3 py-1 font-semibold text-[#1f8e44] transition-colors hover:bg-[#d9f3e5]' target='_blank' rel='noreferrer'>
+							Botón de WhatsApp: {CONTACT_INFO.whatsappPrimaryLabel}
+						</a>
+					</li>
+					<li>Contacto secundario: <a href={CONTACT_INFO.secondaryWhatsAppUrl} class='text-brand-accent' target='_blank' rel='noreferrer'>{CONTACT_INFO.secondaryLabel}</a></li>
+					<li>
+						<a href={CONTACT_INFO.googleBusinessProfile} class='text-brand-accent' target='_blank' rel='noreferrer'>Google Perfil de Negocio</a>
+					</li>
 				</ul>
 			</div>
 			<form class='rounded-3xl border border-brand-main/10 bg-brand-bg p-8 shadow-soft' data-reveal>

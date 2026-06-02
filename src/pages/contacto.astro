@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import Button from '../components/Button.astro';
+import { CONTACT_INFO } from '../consts';
 ---
 
 <Layout title='Contacto | Twinbox Agency' description='Agenda una sesión con Twinbox Agency para diseñar tu estrategia de marketing digital.'>
@@ -9,9 +10,24 @@ import Button from '../components/Button.astro';
 		<SectionHeading title='Contacto' subtitle='Hablemos de tus objetivos y construyamos un plan de crecimiento digital a medida.' />
 		<div class='mt-12 grid gap-10 lg:grid-cols-2'>
 			<div class='space-y-4 text-sm text-brand-main/85'>
-				<p>Email: <a class='font-semibold text-brand-accent' href='mailto:twinboxmex@gmail.com'>twinboxmex@gmail.com</a></p>
-				<p>WhatsApp 1: <a class='font-semibold text-brand-accent' href='https://wa.me/529878004033' target='_blank' rel='noreferrer'>+52 987 800 4033</a></p>
-				<p>WhatsApp 2: <a class='font-semibold text-brand-accent' href='https://wa.me/529871116712' target='_blank' rel='noreferrer'>+52 987 111 6712</a></p>
+				<p>Email: <a class='font-semibold text-brand-accent' href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a></p>
+				<p>
+					<a class='inline-flex rounded-full border border-[#1f8e44]/30 bg-[#e7f8ef] px-4 py-2 font-semibold text-[#1f8e44] transition-colors hover:bg-[#d9f3e5]' href={CONTACT_INFO.whatsappPrimaryUrl} target='_blank' rel='noreferrer'>
+						Botón de WhatsApp: {CONTACT_INFO.whatsappPrimaryLabel}
+					</a>
+				</p>
+				<p>Contacto secundario: <a class='font-semibold text-brand-accent' href={CONTACT_INFO.secondaryWhatsAppUrl} target='_blank' rel='noreferrer'>{CONTACT_INFO.secondaryLabel}</a></p>
+				<div class='pt-2'>
+					<p class='font-semibold'>Redes y perfiles:</p>
+					<ul class='mt-2 space-y-1'>
+						<li><a class='text-brand-accent hover:underline' href={CONTACT_INFO.facebook} target='_blank' rel='noreferrer'>Facebook</a></li>
+						<li><a class='text-brand-accent hover:underline' href={CONTACT_INFO.instagram} target='_blank' rel='noreferrer'>Instagram</a></li>
+						<li><a class='text-brand-accent hover:underline' href={CONTACT_INFO.youtube} target='_blank' rel='noreferrer'>YouTube</a></li>
+						<li><a class='text-brand-accent hover:underline' href={CONTACT_INFO.tiktok} target='_blank' rel='noreferrer'>TikTok</a></li>
+						<li><a class='text-brand-accent hover:underline' href={CONTACT_INFO.x} target='_blank' rel='noreferrer'>X</a></li>
+						<li><a class='text-brand-accent hover:underline' href={CONTACT_INFO.googleBusinessProfile} target='_blank' rel='noreferrer'>Google Perfil de Negocio</a></li>
+					</ul>
+				</div>
 				<p>Ciudades: Mérida, Cancún, Tulum, Playa del Carmen, CDMX, Cozumel, San Luis Potosí, Morelia e Ixtapa Zihuatanejo.</p>
 			</div>
 			<form class='rounded-3xl border border-brand-main/10 bg-white/75 p-8 shadow-soft'>

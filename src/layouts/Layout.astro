@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACT_INFO } from '../consts';
 
 interface Props {
 	title?: string;
@@ -45,6 +46,18 @@ const canonicalUrl = canonical ?? currentUrl;
 		<meta name='twitter:description' content={description} />
 		<meta name='twitter:image' content={image} />
 
+		<!-- Google tag (gtag.js) -->
+		<script async src='https://www.googletagmanager.com/gtag/js?id=G-5RR817V78B'></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				window.dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-5RR817V78B');
+		</script>
+
 		<script type='application/ld+json' set:html={JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Organization',
@@ -52,9 +65,12 @@ const canonicalUrl = canonical ?? currentUrl;
 			url: Astro.site ?? Astro.url.origin,
 			logo: '/images/brand/LOGO.webp',
 			sameAs: [
-				'https://www.facebook.com/TwinboxMexico',
-				'https://www.instagram.com/twinboxmexico/',
-				'https://tiktok.com/@twinbox.publicidad',
+				CONTACT_INFO.facebook,
+				CONTACT_INFO.instagram,
+				CONTACT_INFO.youtube,
+				CONTACT_INFO.tiktok,
+				CONTACT_INFO.x,
+				CONTACT_INFO.googleBusinessProfile,
 			],
 		})} />
 	</head>

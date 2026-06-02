@@ -8,6 +8,8 @@ const services = [
 	{ href: '/ia', label: 'Inteligencia Artificial' },
 	{ href: '/paquetes', label: 'Paquetes' },
 ];
+
+import { CONTACT_INFO } from '../consts';
 ---
 
 <footer class='border-t border-brand-main/10 bg-white/60'>
@@ -42,13 +44,22 @@ const services = [
 		<div>
 			<h3 class='font-heading text-lg'>Contacto</h3>
 			<ul class='mt-4 space-y-2 text-sm text-brand-main/90'>
-				<li><a href='mailto:twinboxmex@gmail.com' class='hover:text-brand-accent'>twinboxmex@gmail.com</a></li>
-				<li><a href='https://wa.me/529878004033' class='hover:text-brand-accent' target='_blank' rel='noreferrer'>+52 987 800 4033</a></li>
-				<li><a href='https://wa.me/529871116712' class='hover:text-brand-accent' target='_blank' rel='noreferrer'>+52 987 111 6712</a></li>
+				<li><a href={`mailto:${CONTACT_INFO.email}`} class='hover:text-brand-accent'>{CONTACT_INFO.email}</a></li>
+				<li>
+					<a href={CONTACT_INFO.whatsappPrimaryUrl} class='inline-flex rounded-full border border-[#1f8e44]/30 bg-[#e7f8ef] px-3 py-1 font-semibold text-[#1f8e44] transition-colors hover:bg-[#d9f3e5]' target='_blank' rel='noreferrer'>
+						WhatsApp: {CONTACT_INFO.whatsappPrimaryLabel}
+					</a>
+				</li>
+				<li><a href={CONTACT_INFO.secondaryWhatsAppUrl} class='hover:text-brand-accent' target='_blank' rel='noreferrer'>Contacto secundario: {CONTACT_INFO.secondaryLabel}</a></li>
 				<li class='pt-2'>
-					<a href='https://www.facebook.com/TwinboxMexico' target='_blank' rel='noreferrer' class='mr-4 hover:text-brand-accent'>Facebook</a>
-					<a href='https://www.instagram.com/twinboxmexico/' target='_blank' rel='noreferrer' class='mr-4 hover:text-brand-accent'>Instagram</a>
-					<a href='https://tiktok.com/@twinbox.publicidad' target='_blank' rel='noreferrer' class='hover:text-brand-accent'>TikTok</a>
+					<a href={CONTACT_INFO.facebook} target='_blank' rel='noreferrer' class='mr-4 hover:text-brand-accent'>Facebook</a>
+					<a href={CONTACT_INFO.instagram} target='_blank' rel='noreferrer' class='mr-4 hover:text-brand-accent'>Instagram</a>
+					<a href={CONTACT_INFO.youtube} target='_blank' rel='noreferrer' class='mr-4 hover:text-brand-accent'>YouTube</a>
+					<a href={CONTACT_INFO.tiktok} target='_blank' rel='noreferrer' class='mr-4 hover:text-brand-accent'>TikTok</a>
+					<a href={CONTACT_INFO.x} target='_blank' rel='noreferrer' class='hover:text-brand-accent'>X</a>
+				</li>
+				<li>
+					<a href={CONTACT_INFO.googleBusinessProfile} target='_blank' rel='noreferrer' class='hover:text-brand-accent'>Google Perfil de Negocio</a>
 				</li>
 			</ul>
 		</div>
